@@ -86,7 +86,7 @@ void CoplanarIntensityMCCalculator::add(MCData * data)
     x2 = x1 - x;
 
     /*for coplanar geometry y1 = y2; y = 0  */
-    y1 = gsl_ran_flat(m_rng, -m_sigma_x, m_sigma_x);
+    y1 = 0.0;//gsl_ran_flat(m_rng, -m_sigma_x, m_sigma_x);
 
     /*find coordinates in the lab coord system*/
     /* minus sign before z-coordinates is due to the chosen laboratory coordinate frame*/

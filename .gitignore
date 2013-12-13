@@ -1,3 +1,9 @@
 *.cfg
 *.~cfg
 *.out
+*.opj
+Debug
+.cproject
+.project
+*.dll
+*.nb
