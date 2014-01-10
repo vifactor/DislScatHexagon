@@ -161,7 +161,7 @@ void HexagonalNetRandomShifts::update()
 {
 	VertexIter vi, vi_end;
 	static Vector2d shift;
-	static double r, phi;
+	//static double r, phi;
 
 	/*random origin of the net*/
 	//phi = 2 * M_PI * gsl_rng_uniform (m_rng);
