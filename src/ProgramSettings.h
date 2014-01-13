@@ -163,9 +163,17 @@ public:
 			/*how much the center of the net is moved*/
 			double center_shift;
 		};
+        struct ConstFieldInterfaceSettings
+		{
+        	double eps_xz;
+        	double eps_yz;
+        	double eps_zz;
+			/*depth at which interface is situated*/
+			double depth;
+		};
 		enum InterfaceType
 		{
-			itfUNKNOWN, itfSTRAIGHT_GG, itfSTRAIGHT_GAMMA, itfSTRAIGHT_GAUSS, itfHEXRSH, itfHEXRSO, itfHEXRW
+			itfUNKNOWN, itfCONSTFIELD, itfSTRAIGHT_GG, itfSTRAIGHT_GAMMA, itfSTRAIGHT_GAUSS, itfHEXRSH, itfHEXRSO, itfHEXRW
 		} interfaceType;
 		StraightGammaGaussInterfaceSettings * straightGammaGaussInterfaceSettings;
         StraightGammaInterfaceSettings * straightGammaInterfaceSettings;
@@ -173,6 +181,7 @@ public:
         HexRandomShiftsInterfaceSettings * hexRandomShiftsInterfaceSettings;
         HexRandomWavesInterfaceSettings * hexRandomWavesInterfaceSettings;
         HexRandomSourcesInterfaceSettings * hexRandomSourcesInterfaceSettings;
+        ConstFieldInterfaceSettings * constFieldInterfaceSettings;
 	};
 	struct EngineSettings
 	{
@@ -269,6 +278,8 @@ protected:
 	void readHexRandomShiftsInterfaceSettings(const libconfig::Setting& stg);
 	void readHexRandomSourcesInterfaceSettings(const libconfig::Setting& stg);
 	void readHexRandomWavesInterfaceSettings(const libconfig::Setting& stg);
+	void readConstFieldInterfaceSettings(const libconfig::Setting& stg);
+
 
 	SampleSettings::InterfaceType defineInterfaceType(const libconfig::Setting& stg);
 	EngineSettings::CalculatorType defineCalculatorType(const libconfig::Setting& stg);
@@ -288,6 +299,7 @@ protected:
 	void printHexRandomShiftsInterfaceSettings() const;
 	void printHexRandomSourcesInterfaceSettings() const;
 	void printHexRandomWavesInterfaceSettings() const;
+	void printConstFieldInterfaceSettings() const;
 
 	SampleSettings m_sampleSettings;
 	EngineSettings m_engineSettings;

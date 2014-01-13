@@ -11,6 +11,8 @@
 #include "ProgramSettings.h"
 #include "HexagonalDislocationNet.h"
 #include "TriangularDislocationNet.h"
+#include "ConstantStrainNet.h"
+
 #include "LocalDisplacementCalculator.h"
 #include "LocalStrainCalculator.h"
 #include "MeanStrainMCCalculator.h"
@@ -39,6 +41,7 @@ protected:
 	virtual MCInterface * allocateHexRandomShiftsInterface(const ProgramSettings::SampleSettings::HexRandomShiftsInterfaceSettings* stg);
 	virtual MCInterface * allocateHexRandomSourcesInterface(const ProgramSettings::SampleSettings::HexRandomSourcesInterfaceSettings* stg);
 	virtual MCInterface * allocateHexRandomWavesInterface(const ProgramSettings::SampleSettings::HexRandomWavesInterfaceSettings* stg);
+	virtual MCInterface * allocateConstFieldInterface(const ProgramSettings::SampleSettings::ConstFieldInterfaceSettings* stg);
 
 	virtual MCCalculator * allocateLocalDisplacementCalculator(const ProgramSettings::EngineSettings::LocalDisplacementCalculatorSettings* stg);
 	virtual MCCalculator * allocateLocalStrainCalculator(const ProgramSettings::EngineSettings::LocalStrainCalculatorSettings* stg);

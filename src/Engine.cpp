@@ -80,6 +80,9 @@ void Engine::setupSample(const ProgramSettings::SampleSettings& stg)
 	}else if(stg.interfaceType == ProgramSettings::SampleSettings::itfHEXRW)
 	{
 		m_interface = allocateHexRandomWavesInterface(stg.hexRandomWavesInterfaceSettings);
+	}else if(stg.interfaceType == ProgramSettings::SampleSettings::itfCONSTFIELD)
+	{
+		m_interface = allocateConstFieldInterface(stg.constFieldInterfaceSettings);
 	}
 	std::cout << "nb of defects:\t" << m_interface->nbDefects() << std::endl;
 	m_sample->addInterface(m_interface);
@@ -215,6 +218,11 @@ MCInterface * Engine::allocateHexRandomShiftsInterface(const ProgramSettings::Sa
 	std::cout << "proj:\t" << proj.x << "\t" << proj.y << std::endl;
 
 	return (new HexagonalDislocationNet(m_hexagonalNet, Vector3d(bx, by, bz), stg->depth, MCInterface::m_nu));
+}
+
+MCInterface * Engine::allocateConstFieldInterface(const ProgramSettings::SampleSettings::ConstFieldInterfaceSettings* stg)
+{
+	return (new ConstantStrainNet(stg->eps_xz, stg->eps_yz, stg->eps_zz, stg->depth));
 }
 
 MCInterface * Engine::allocateHexRandomSourcesInterface(const ProgramSettings::SampleSettings::HexRandomSourcesInterfaceSettings* stg)

@@ -92,9 +92,12 @@ ProgramSettings::~ProgramSettings()
 	}else if (m_sampleSettings.interfaceType == SampleSettings::itfHEXRSO)
 	{
 		delete m_sampleSettings.hexRandomSourcesInterfaceSettings;
-	}else if (m_sampleSettings.interfaceType == SampleSettings::itfHEXRW)
+	}else if (m_sampleSettings.interfaceType == SampleSettings::itfHEXRSO)
 	{
-		delete m_sampleSettings.hexRandomWavesInterfaceSettings;
+		delete m_sampleSettings.hexRandomSourcesInterfaceSettings;
+	}else if (m_sampleSettings.interfaceType == SampleSettings::itfCONSTFIELD)
+	{
+		delete m_sampleSettings.constFieldInterfaceSettings;
 	}
 
 	if (m_engineSettings.calculatorType == EngineSettings::calcLDISPL)
@@ -197,6 +200,10 @@ void ProgramSettings::readSampleSettings(const libconfig::Setting& root)
 	{
 		m_sampleSettings.hexRandomWavesInterfaceSettings = new SampleSettings::HexRandomWavesInterfaceSettings();
 		readHexRandomWavesInterfaceSettings(interface_settings);
+	}else if (m_sampleSettings.interfaceType == SampleSettings::itfCONSTFIELD)
+	{
+		m_sampleSettings.constFieldInterfaceSettings = new SampleSettings::ConstFieldInterfaceSettings();
+		readConstFieldInterfaceSettings(interface_settings);
 	} else
 	{
 		throw Exception("Unknown interface type");
@@ -313,8 +320,10 @@ ProgramSettings::SampleSettings::InterfaceType ProgramSettings::defineInterfaceT
 	}else if(interfaceType.compare("HEXRW") == 0)
 	{
 		return SampleSettings::itfHEXRW;
-	}
-	else
+	}else if(interfaceType.compare("CONSTFIELD") == 0)
+	{
+		return SampleSettings::itfCONSTFIELD;
+	}else
 	{
 		return SampleSettings::itfUNKNOWN;
 	}
@@ -451,6 +460,9 @@ void ProgramSettings::printSampleSettings() const
 	}else if(m_sampleSettings.interfaceType == SampleSettings::itfHEXRW)
 	{
 		printHexRandomWavesInterfaceSettings();
+	}else if(m_sampleSettings.interfaceType == SampleSettings::itfCONSTFIELD)
+	{
+		printConstFieldInterfaceSettings();
 	}
 }
 
@@ -541,6 +553,14 @@ void ProgramSettings::readHexRandomWavesInterfaceSettings(const libconfig::Setti
     m_sampleSettings.hexRandomWavesInterfaceSettings->burgers = readMillerDirectHexIndices(stg["burgers"]);
     m_sampleSettings.hexRandomWavesInterfaceSettings->line = readMillerDirectHexIndices(stg["line"]);
     m_sampleSettings.hexRandomWavesInterfaceSettings->depth = stg["depth"];
+}
+
+void ProgramSettings::readConstFieldInterfaceSettings(const libconfig::Setting& stg)
+{
+	m_sampleSettings.constFieldInterfaceSettings->depth = stg["depth"];
+    m_sampleSettings.constFieldInterfaceSettings->eps_xz = stg["eps_xz"];
+    m_sampleSettings.constFieldInterfaceSettings->eps_yz = stg["eps_yz"];
+    m_sampleSettings.constFieldInterfaceSettings->eps_zz = stg["eps_zz"];
 }
 
 void ProgramSettings::printStrGammaGaussInterfaceSettings() const
@@ -636,5 +656,18 @@ void ProgramSettings::printHexRandomWavesInterfaceSettings() const
 			<< m_sampleSettings.hexRandomWavesInterfaceSettings->amplitude
 			<< ", "
 			<< m_sampleSettings.hexRandomWavesInterfaceSettings->wavevector
+			<< std::endl;
+}
+
+void ProgramSettings::printConstFieldInterfaceSettings() const
+{
+	std::cout << "\tStatic field interface." << std::endl;
+	std::cout << "\tEsp_xz:\t" << m_sampleSettings.constFieldInterfaceSettings->eps_xz
+			<< std::endl;
+	std::cout << "\tEsp_yz:\t" << m_sampleSettings.constFieldInterfaceSettings->eps_yz
+			<< std::endl;
+	std::cout << "\tEsp_zz:\t" << m_sampleSettings.constFieldInterfaceSettings->eps_zz
+			<< std::endl;
+	std::cout << "\tDepth:\t" << m_sampleSettings.constFieldInterfaceSettings->depth
 			<< std::endl;
 }
