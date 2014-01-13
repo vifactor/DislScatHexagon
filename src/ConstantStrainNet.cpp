@@ -24,7 +24,7 @@ const Geometry::Vector3d& ConstantStrainNet::u(const Geometry::Vector3d& r) cons
 	m_u.x = 0.0;
 	m_u.y = 0.0;
 	/*linear dependence of displacements from strain fields*/
-	m_u.y = m_eps_xz * r.x + m_eps_yz * r.y + m_eps_zz * r.z;
+	m_u.z = 2 * m_eps_xz * r.x + 2 * m_eps_yz * r.y + m_eps_zz * r.z;
 
 	return m_u;
 }
