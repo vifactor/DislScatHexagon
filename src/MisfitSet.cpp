@@ -44,7 +44,7 @@ void MisfitSet::update()
 
     /*initial position is shifted by a mean distance to the left*/
     step = m_distribution->getStart();
-    pos = -m_width/2 - step;
+    pos = -m_width/2; //- step;
 
     //angle = gsl_ran_gaussian(m_distribution->getRng(), M_PI / 75);
     for(size_t i = 0; i < m_dislocations.size(); ++i)
