@@ -1,11 +1,5 @@
-*.cfg
-*.~cfg
-*.out
-*.png
-*.opj
-*.ppt
-.cproject
-Debug
-*.nb
-*.dll
-.project
+*
+!src
+!README.md
+!default.cfg
+!default_template.cfg

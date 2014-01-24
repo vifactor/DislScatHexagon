@@ -16,6 +16,25 @@ CoplanarIntensityMCCalculator::CoplanarIntensityMCCalculator(MCSample * sample,
      */
     m_sample = sample;
 
+    /*
+     * normally, the number of MC steps to perform
+     * before the next configuration of the sample is generated
+     * is equal to number of defects in the sample.
+     *
+     * for the samples with hexagonal interface the number of defects is so high,
+     * that sample is updated very rarely and each output if just an average
+     * over one configuration.
+     *
+     * to avoid this kind of issue, the maximum steps before update is set to nb_max_to_update
+     */
+    const size_t nb_max_to_update = 5000;
+    if(m_sample->nbDefects() == 0) //when sample does not contain defects (testing purposes, resolution calculation)
+    	m_steps_to_update = 1;
+    else if(m_sample->nbDefects() <= nb_max_to_update)
+    	m_steps_to_update = m_sample->nbDefects();
+    else
+    	m_steps_to_update = nb_max_to_update;
+
     setupLaboratoryFrame();
 }
 
@@ -121,10 +140,11 @@ void CoplanarIntensityMCCalculator::run(MCData * data)
     static size_t istep;
 
     istep = 0;
+
     while(istep < data->getNbSteps())
     {
         m_sample->update();
-        for(size_t idisl = 0; idisl < m_sample->nbDefects() + 1; ++idisl)
+        for(size_t idisl = 0; idisl < m_steps_to_update; ++idisl)
         {
             add(data);
             ++istep;

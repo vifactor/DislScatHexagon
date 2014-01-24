@@ -20,6 +20,7 @@ protected:
     Geometry::Vector3d m_axis_x, m_axis_y, m_axis_z;
     const static double m_epsilon = 1e-10;
 
+    size_t m_steps_to_update;
     void add(MCData * data);
 };
 
