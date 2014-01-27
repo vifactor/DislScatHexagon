@@ -27,7 +27,7 @@ CoplanarIntensityMCCalculator::CoplanarIntensityMCCalculator(MCSample * sample,
      *
      * to avoid this kind of issue, the maximum steps before update is set to nb_max_to_update
      */
-    const size_t nb_max_to_update = 5000;
+    const size_t nb_max_to_update = 500;
     if(m_sample->nbDefects() == 0) //when sample does not contain defects (testing purposes, resolution calculation)
     	m_steps_to_update = 1;
     else if(m_sample->nbDefects() <= nb_max_to_update)
