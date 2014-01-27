@@ -542,7 +542,6 @@ void ProgramSettings::readHexRandomSourcesInterfaceSettings(const libconfig::Set
     m_sampleSettings.hexRandomSourcesInterfaceSettings->burgers = readMillerDirectHexIndices(stg["burgers"]);
     m_sampleSettings.hexRandomSourcesInterfaceSettings->line = readMillerDirectHexIndices(stg["line"]);
     m_sampleSettings.hexRandomSourcesInterfaceSettings->depth = stg["depth"];
-    m_sampleSettings.hexRandomSourcesInterfaceSettings->center_shift = stg["center_shift"];
 }
 
 void ProgramSettings::readHexRandomWavesInterfaceSettings(const libconfig::Setting& stg)
@@ -628,8 +627,6 @@ void ProgramSettings::printHexRandomSourcesInterfaceSettings() const
 	std::cout << "\tSource amplitude:\t" << m_sampleSettings.hexRandomSourcesInterfaceSettings->alpha
 			<< std::endl;
 	std::cout << "\tSource power:\t" << m_sampleSettings.hexRandomSourcesInterfaceSettings->k
-			<< std::endl;
-	std::cout << "\tCenter shift:\t" << m_sampleSettings.hexRandomSourcesInterfaceSettings->center_shift
 			<< std::endl;
 	std::cout << "\tFraction of sources:\t" << m_sampleSettings.hexRandomSourcesInterfaceSettings->frac
 			<< std::endl;

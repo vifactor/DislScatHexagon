@@ -160,8 +160,6 @@ public:
 			/*distorsion wave parameter*/
 			double alpha, frac;
 			double k;
-			/*how much the center of the net is moved*/
-			double center_shift;
 		};
         struct ConstFieldInterfaceSettings
 		{

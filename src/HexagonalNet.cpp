@@ -161,12 +161,6 @@ void HexagonalNetRandomShifts::update()
 {
 	VertexIter vi, vi_end;
 	static Vector2d shift;
-	//static double r, phi;
-
-	/*random origin of the net*/
-	//phi = 2 * M_PI * gsl_rng_uniform (m_rng);
-	//r =  m_a * sqrt(gsl_rng_uniform (m_rng));
-	m_center.set(0.0, 0.0);
 
 	for (tie(vi, vi_end) = vertices(*this); vi != vi_end; ++vi)
 	{
@@ -191,13 +185,13 @@ Vector2d HexagonalNetRandomShifts::displacement()
 	return res;
 }
 
-HexagonalNetRandomSources::HexagonalNetRandomSources(
-		const gsl_rng * rng, const Vector2d& a, double center_shift, double alpha, int k, double frac) :
+HexagonalNetRandomSources::HexagonalNetRandomSources(const gsl_rng * rng,
+		const Geometry::Vector2d& center, const Vector2d& a, double alpha,
+		int k, double frac) :
 		HexagonalNet(a)
 {
 	m_rng = rng;
-	m_center = Vector2d(0, 0);
-	m_center_shift = center_shift;
+	m_center = center;
 	m_alpha = alpha;
 	m_source_frac = frac;
 	m_k = k;
@@ -209,7 +203,6 @@ void HexagonalNetRandomSources::update()
 	static Source source;
 	static Vector2d r, shift;
 	static double rnum;
-	static double R, phi;
 	/*
 	 * the new distortion centers are generated here
 	 * the number of sources is equal to nbhexagons * frac
@@ -227,11 +220,6 @@ void HexagonalNetRandomSources::update()
 			m_sources.push_back(source);
 		}
 	}
-
-	/*the net origin is random*/
-	phi = 2 * M_PI * gsl_rng_uniform (m_rng);
-	R =  m_center_shift * m_a * sqrt(gsl_rng_uniform (m_rng));
-	m_center.set(R * cos(phi), R * sin(phi));
 
 	/*update all vertices*/
 	for (tie(vi, vi_end) = vertices(*this); vi != vi_end; ++vi)

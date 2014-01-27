@@ -86,7 +86,7 @@ class HexagonalNetRandomSources : public HexagonalNet
 {
 public:
 	HexagonalNetRandomSources(const gsl_rng * rng,
-			const Geometry::Vector2d & a, double center_shift,
+			const Geometry::Vector2d& center, const Geometry::Vector2d & a,
 			double alpha, int k, double frac);
 	virtual ~HexagonalNetRandomSources() {}
 
@@ -95,8 +95,6 @@ private:
 	const gsl_rng * m_rng;
 	/*origin of hexagonal net*/
 	Geometry::Vector2d m_center;
-	/*shift of the origin*/
-	double m_center_shift;
 	struct Source
 	{
 		/*amplitude of distortion*/

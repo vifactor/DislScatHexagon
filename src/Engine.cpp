@@ -251,7 +251,7 @@ MCInterface * Engine::allocateHexRandomSourcesInterface(const ProgramSettings::S
 	proj.Rotate(M_PI / 2);
 	proj *= a_hex;
 
-	m_hexagonalNet = new HexagonalNetRandomSources(m_rng, proj, stg->center_shift, stg->alpha, stg->k, stg->frac);
+	m_hexagonalNet = new HexagonalNetRandomSources(m_rng, Vector2d(0, 0), proj, stg->alpha, stg->k, stg->frac);
 	m_hexagonalNet->seed(-w/2, -w/2, w/2, w/2);
 
 	std::cout << "a_hex:\t" << a_hex << std::endl;
